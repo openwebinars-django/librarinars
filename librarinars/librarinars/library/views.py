@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
@@ -13,6 +14,7 @@ def index(request):
     form = BookForm(data=data)
     if form.is_valid():
         form.save()
+        messages.add_message(request, messages.INFO, 'Created successfully')
         return HttpResponseRedirect(reverse('index'))
     return render_to_response('index.html',
                               {'form': form},
